@@ -64,4 +64,34 @@ brat_przyrodni(X,Y) :-
     	(   (   matka(M,X), matka(M,Y)	),	(   ojciec(O,X), \+ojciec(O,Y)	)	)
     ).
     
-kuzyn(X,Y) :-
+% kuzyn(X,Y) :- ????
+
+dziadek_od_strony_ojca(X,Y) :-
+    mezczyzna(X),
+    ojciec(O,Y),
+    ojciec(X,O).
+
+dziadek_od_strony_matki(X,Y) :-
+    mezczyzna(X),
+    matka(M,Y),
+    ojciec(X,M).
+
+dziadek(X,Y) :-
+    mezczyzna(X),
+    rodzic(R,Y),
+    ojciec(X,R).
+
+babcia(X,Y) :-
+    kobieta(X),
+    rodzic(R,Y),
+    matka(X,R).
+
+wnuczka(X,Y) :-
+    kobieta(X),
+    (   babcia(Y,X); dziadek(Y,X)	).
+
+przodek_do2pokolenia_wstecz(X,Y) :-
+    rodzic(X,Y); dziadek(X,Y); babcia(X,Y).
+
+przodek_do3pokolenia_wstecz(X,Y) :-	
+    rodzic(X,Y); ( rodzic(R,Y), przodek_do2pokolenia_wstecz(X,R)). 
