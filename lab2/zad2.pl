@@ -64,7 +64,11 @@ brat_przyrodni(X,Y) :-
     	(   (   matka(M,X), matka(M,Y)	),	(   ojciec(O,X), \+ojciec(O,Y)	)	)
     ).
     
-% kuzyn(X,Y) :- ????
+kuzyn(X,Y) :-
+  mezczyzna(X), 
+  rodzic(Z,X), 
+  rodzic(W,Y), 
+  (rodzic(A,W), rodzic(A,Z)).
 
 dziadek_od_strony_ojca(X,Y) :-
     mezczyzna(X),
